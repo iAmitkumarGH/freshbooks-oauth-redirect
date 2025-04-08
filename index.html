@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>OAuth Redirect</title>
-</head>
-<body>
-  <h1>OAuth Redirect Received</h1>
-  <p>Copy the following code and paste it in your Python script:</p>
-  <pre id="codeBox">Waiting for code...</pre>
+  <head>
+    <title>OAuth Redirect</title>
+    <script>
+      // Parse the auth code from the URL and copy it to clipboard
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get('code');
+      if (code) {
+        // Copy code to clipboard
+        navigator.clipboard.writeText(code).then(() => {
+          alert("Authorization code copied to clipboard:\n\n" + code);
+        });
 
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get("code");
-    if (code) {
-      document.getElementById("codeBox").textContent = code;
-    } else {
-      document.getElementById("codeBox").textContent = "No code in URL.";
-    }
-  </script>
-</body>
+        // Show code on screen
+        document.addEventListener("DOMContentLoaded", () => {
+          document.getElementById("code").textContent = code;
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <h2>FreshBooks OAuth Redirect</h2>
+    <p>Your authorization code:</p>
+    <pre id="code">Waiting for code...</pre>
+    <p>You can now close this page and paste the code into your script.</p>
+  </body>
 </html>
